@@ -1,0 +1,29 @@
+// UI "remota" — em produção viria do servidor (.rfw binário).
+import core.widgets;
+import core.material;
+
+widget root = Scaffold(
+  appBar: AppBar(
+    title: Text(text: "RFW Contador"),
+  ),
+  body: Center(
+    child: Column(
+      mainAxisAlignment: "center",
+      children: [
+        Text(text: ["Olá, ", data.user.name, "!"]),
+        SizedBox(height: 12.0),
+        Text(text: ["Você apertou o botão ", data.counter.value, " vezes."]),
+        SizedBox(height: 24.0),
+        ElevatedButton(
+          child: Text(text: "Incrementar"),
+          onPressed: event "increment" {},
+        ),
+        SizedBox(height: 8.0),
+        TextButton(
+          child: Text(text: "Zerar"),
+          onPressed: event "reset" {},
+        ),
+      ],
+    ),
+  ),
+);
