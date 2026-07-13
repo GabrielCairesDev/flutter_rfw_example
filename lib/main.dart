@@ -1,3 +1,12 @@
+/// Exemplo educativo do pacote [rfw](https://pub.dev/packages/rfw).
+///
+/// RFW = UI declarativa carregada em **runtime** (.rfwtxt / .rfw), não escrita
+/// como widgets Dart. O app só fornece:
+/// - libs locais (`createCoreWidgets`, `createMaterialWidgets`)
+/// - dados (`DynamicContent`)
+/// - tratamento de eventos (`RemoteWidget.onEvent`)
+library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rfw_example/data/repositories/remote_ui_repository.dart';
 import 'package:flutter_rfw_example/data/services/remote_ui_service.dart';
@@ -9,6 +18,7 @@ void main() {
   runApp(const RfwExampleApp());
 }
 
+/// App mínimo: Provider só para injetar o ViewModel que encapsula o RFW.
 class RfwExampleApp extends StatelessWidget {
   const RfwExampleApp({super.key});
 
@@ -22,6 +32,7 @@ class RfwExampleApp extends StatelessWidget {
             service: context.read<RemoteUiService>(),
           ),
         ),
+        // Aqui vivem Runtime + DynamicContent — o coração do RFW neste app.
         ChangeNotifierProvider(
           create: (context) => RemoteCounterViewModel(
             repository: context.read<RemoteUiRepository>(),

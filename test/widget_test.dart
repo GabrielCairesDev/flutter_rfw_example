@@ -2,7 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_rfw_example/main.dart';
 
 void main() {
-  testWidgets('carrega UI remota RFW e incrementa contador', (tester) async {
+  // Garante: parse .rfwtxt + DynamicContent + event "increment".
+  testWidgets('RFW: carrega lib remota e trata evento increment', (tester) async {
     await tester.pumpWidget(const RfwExampleApp());
     await tester.pumpAndSettle();
 

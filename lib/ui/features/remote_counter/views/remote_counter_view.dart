@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rfw_example/ui/features/remote_counter/view_models/remote_counter_view_model.dart';
 import 'package:rfw/rfw.dart';
 
+/// Hospeda o [RemoteWidget] — ponte Flutter ↔ biblioteca remota RFW.
+///
+/// Args essenciais do [RemoteWidget]:
+/// - `runtime` — libs já registradas
+/// - `data` — [DynamicContent]
+/// - `widget` — `FullyQualifiedWidgetName` (ex.: main/root)
+/// - `onEvent` — callback dos `event "..."` do `.rfwtxt`
 class RemoteCounterView extends StatefulWidget {
   const RemoteCounterView({super.key, required this.viewModel});
 
@@ -15,6 +22,7 @@ class _RemoteCounterViewState extends State<RemoteCounterView> {
   @override
   void initState() {
     super.initState();
+    // Carrega a lib remota após o 1º frame (evita notify no meio do build).
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.viewModel.load();
     });

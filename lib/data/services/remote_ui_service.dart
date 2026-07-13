@@ -1,6 +1,9 @@
 import 'package:flutter/services.dart';
 
-/// Simula fetch de UI remota (asset local). Troque por HTTP em produção.
+/// Obtém a biblioteca remota RFW.
+///
+/// Neste exemplo: lê asset `.rfwtxt` (offline, fácil de editar).
+/// Em app real: HTTP que devolve blob `.rfw` → `decodeLibraryBlob`.
 class RemoteUiService {
   Future<String> fetchLibraryText(String assetPath) {
     return rootBundle.loadString(assetPath);

@@ -1,4 +1,28 @@
-// UI "remota" — em produção viria do servidor (.rfw binário).
+// =============================================================================
+// Remote Flutter Widgets — biblioteca remota (formato texto .rfwtxt)
+// =============================================================================
+//
+// Isto NÃO é Dart. É a DSL do pacote rfw.
+// O Runtime monta widgets Flutter reais a partir desta descrição.
+//
+// Sintaxe essencial:
+//
+//   import core.widgets;     → usa Text, Center, Column, SizedBox…
+//   import core.material;    → usa Scaffold, AppBar, ElevatedButton…
+//                              (libs LOCAIS: createCoreWidgets / createMaterialWidgets)
+//
+//   widget root = ...;       → entrypoint (FullyQualifiedWidgetName main/root)
+//
+//   data.user.name           → lê DynamicContent atualizado no Dart
+//   event "increment" {}     → chama RemoteWidget.onEvent("increment", {...})
+//
+// Formatos:
+//   .rfwtxt  → texto (este arquivo). Bom pra aprender. Lento.
+//   .rfw     → binário (encodeLibraryBlob / decodeLibraryBlob). Use em produção.
+//
+// Dev: editar este asset exige HOT RESTART (R). Hot reload (r) NÃO recarrega asset.
+// =============================================================================
+
 import core.widgets;
 import core.material;
 
@@ -10,12 +34,15 @@ widget root = Scaffold(
     child: Column(
       mainAxisAlignment: "center",
       children: [
+        // text: lista → concatena literais + data.* num único Text Flutter.
         Text(text: ["Olá, ", data.user.name, "!"]),
         SizedBox(height: 12.0),
+        // counter.value precisa ser String no DynamicContent.
         Text(text: ["Você apertou o botão ", data.counter.value, " vezes."]),
         SizedBox(height: 24.0),
         ElevatedButton(
           child: Text(text: "Incrementar"),
+          // Sem closure Dart: só declara o nome do evento.
           onPressed: event "increment" {},
         ),
         SizedBox(height: 8.0),
